@@ -1,6 +1,6 @@
-# bandwhich
+# cilium-cli
 
-Upstream binary releases: <https://github.com/imsnif/bandwhich>
+Upstream binary releases: <https://github.com/cilium/cilium-cli>
 
 ## Compatibility
 

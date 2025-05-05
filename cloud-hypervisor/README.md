@@ -1,6 +1,6 @@
-# bandwhich
+# cloud-hypervisor
 
-Upstream binary releases: <https://github.com/imsnif/bandwhich>
+Upstream binary releases: <https://github.com/cloud-hypervisor/cloud-hypervisor>
 
 ## Compatibility
 

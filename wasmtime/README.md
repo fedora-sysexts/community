@@ -1,6 +1,6 @@
-# bandwhich
+# wasmtime
 
-Upstream binary releases: <https://github.com/imsnif/bandwhich>
+Upstream binary releases: <https://github.com/bytecodealliance/wasmtime>
 
 ## Compatibility
 

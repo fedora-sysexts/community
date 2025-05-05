@@ -1,6 +1,6 @@
-# bandwhich
+# virtctl
 
-Upstream binary releases: <https://github.com/imsnif/bandwhich>
+Upstream binary releases: <https://github.com/kubevirt/kubevirt>
 
 ## Compatibility
 
