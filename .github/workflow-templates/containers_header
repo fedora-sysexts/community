@@ -1,0 +1,55 @@
+name: "Build containers: %%NAME%% (%%RELEASE%%, %%ARCH%%)"
+
+env:
+  IMAGE: '%%IMAGE%%'
+  RELEASE: '%%RELEASE%%'
+  NAME: '%%NAME%%'
+  REGISTRY: '%%REGISTRY%%'
+  DESTINATION: '%%DESTINATION%%'
+  PR: ${{ github.event_name == 'pull_request' }}
+  ARCH: '%%ARCH%%'
+
+on:
+  pull_request:
+    branches:
+      - main
+  push:
+    branches:
+      - main
+  schedule:
+    - cron:  '0 0 * * MON'
+  workflow_dispatch:
+
+permissions: read-all
+
+# Prevent multiple workflow runs from racing to ensure that pushes are made
+# sequentialy for the main branch. Also cancel in progress workflow runs.
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref || github.run_id }}-${{ inputs.sysext }}
+  cancel-in-progress: ${{ github.event_name == 'pull_request' }}
+
+jobs:
+  build:
+    runs-on: ubuntu-24.04
+    steps:
+      - name: Reclaim disk space
+        run: |
+          sudo docker image prune --all --force
+          sudo rm -rf "/usr/local/lib/android"
+
+      - name: Get latest podman (and skopeo) for heredocs support
+        run: |
+          set -eux
+          echo 'deb [trusted=yes] https://deb.debian.org/debian/ testing main' | sudo tee /etc/apt/sources.list.d/testing.list
+          sudo apt update
+          sudo apt install -y crun/testing podman/testing skopeo/testing buildah/testing
+          # Something is confused in latest GHA here
+          sudo rm /var/lib/containers -rf
+
+      - name: Checkout repo
+        uses: actions/checkout@v4
+
+      - name: "Mark directory as safe"
+        run: |
+          git config --global --add safe.directory "$GITHUB_WORKSPACE"
+          git fetch --no-tags --prune --depth=1 origin +refs/heads/main:refs/remotes/origin/main
