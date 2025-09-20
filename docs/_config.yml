@@ -1,8 +1,8 @@
 # SPDX-FileCopyrightText: Timothée Ravier <tim@siosm.fr>
 # SPDX-License-Identifier: CC0-1.0
 
-title: "Community sysexts for Fedora"
-description: "Community sourced systemd system extensions (sysexts) for Fedora image based systems"
+title: "extensions.fcos.fr/community"
+description: "Community sourced sysexts for Fedora"
 baseurl: "/community"
 url: "https://fedora-sysexts.github.io"
 permalink: "/:title/"
