@@ -9,9 +9,9 @@ binaries and COPR packages.
 For sysexts built from Fedora packages only, see
 [extensions.fcos.fr/fedora](https://extensions.fcos.fr/fedora).
 
-For general explainations about systemd system extensions (sysexts) and how to
-use them, see the [documentation from the main
-page](https://extensions.fcos.fr).
+For general explainations about systemd system extensions (sysexts) and how
+to use them, see the documentation from the main page:
+[extensions.fcos.fr](https://extensions.fcos.fr).
 
 ## Building
 
