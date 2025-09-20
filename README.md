@@ -1,10 +1,17 @@
-# systemd system extensions for Fedora image based systems
+# Community sourced systemd system extensions (sysexts) for Fedora image based systems
 
-**NOTE: This is currently an experimental project. Make sure to read the known
-limitations section. Use at your own risk.**
+**NOTE: This project is a work in progress. Make sure to read the [known
+limitations section](https://extensions.fcos.fr). Use at your own risk.**
 
-For usage instructions, see the documentation at:
-[extensions.fcos.fr](https://extensions.fcos.fr)
+This repo gathers sysexts made from community provided sources, upstream build
+binaries and COPR packages.
+
+For sysexts built from Fedora packages only, see
+[extensions.fcos.fr/fedora](https://extensions.fcos.fr/fedora).
+
+For general explainations about systemd system extensions (sysexts) and how to
+use them, see the [documentation from the main
+page](https://extensions.fcos.fr).
 
 ## Building
 
@@ -50,7 +57,7 @@ $ just build "quay.io/fedora/fedora-coreos:next"
 ## `extensions.fcos.fr` redirector
 
 A Caddy based redirector is hosted at `extensions.fcos.fr`. The configutation
-is available in [Caddyfile](Caddyfile). It redirects URLs queried by
+is available in the parent project's Caddyfile. It redirects URLs queried by
 `systemd-sysupdate` to GitHub releases where the sysexts are hosted in this
 repo.
 
