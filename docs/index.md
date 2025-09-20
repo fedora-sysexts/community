@@ -14,8 +14,8 @@ For sysexts built from Fedora packages only, see
 [extensions.fcos.fr/fedora](https://extensions.fcos.fr/fedora).
 
 For general explainations about systemd system extensions (sysexts) and how to
-use them, see the [documentation from the main
-page](https://extensions.fcos.fr).
+use them, see the documentation from the parent page:
+[extensions.fcos.fr](https://extensions.fcos.fr).
 
 ## Building, contributing and licenses
 
