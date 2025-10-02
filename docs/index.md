@@ -20,11 +20,7 @@ use them, see the documentation from the parent page:
 
 ## Compatibility
 
-Those sysexts should work will all Fedora based image mode systems (Atomic
-Desktops, CoreOS, IoT, etc.), wether they are Bootable Containers (bootc)
-images, or classic ostree/rpm-ostree systems. They should also work with
-derivative images such as Bluefin, Aurora or Bazzite from the Universal Blue
-project.
+See [extensions.fcos.fr/compatibility](https://extensions.fcos.fr/compatibility).
 
 ## Building, contributing and licenses
 
