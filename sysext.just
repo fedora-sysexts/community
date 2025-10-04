@@ -70,6 +70,28 @@ podman_extra_opts := env('JUST_PODMAN_EXTRA_OPTS', '')
 # Default podman options
 podman_opts := "--rm --arch=" + arch + " --security-opt label=disable" + podman_extra_opts
 
+# Define a retry function for use in recipes
+retry_function := '
+retry() {
+    if [[ "${#}" -lt 3 ]]; then
+        echo "retry usage: <number of tries> <time between retries> <command> ..."
+        return 1
+    fi
+    tries="${1}"
+    sleep="${2}"
+    shift 2
+    for i in $(seq 1 ${tries}); do
+        if [[ ${i} -gt 1 ]]; then
+            # echo "[+] Command failed. Waiting for ${sleep} seconds"
+            sleep ${sleep}
+        fi
+        # echo "[+] Running (try: ${i}): ${@}"
+        "${@}" && r=0 && break || r=$?
+    done
+    return $r
+}
+'
+
 # Default, empty, just recipe
 default:
     #!/bin/bash
