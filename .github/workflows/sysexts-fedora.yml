@@ -311,6 +311,12 @@ jobs:
           sysext: 'nordvpn'
           image: ${{ env.IMAGE }}
 
+      - name: "Build sysext: nvidia-driver-cuda-580.95.05"
+        uses: ./.github/actions/build
+        with:
+          sysext: 'nvidia-driver-cuda-580.95.05'
+          image: ${{ env.IMAGE }}
+
       - name: "Build sysext: openconnect"
         uses: ./.github/actions/build
         with:
