@@ -1,0 +1,14 @@
+FROM baseimage
+
+ARG VERSION=580.95.05
+
+RUN <<EORUN
+set -xeuo pipefail
+source /usr/lib/os-release
+curl https://developer.download.nvidia.com/compute/cuda/repos/${ID}${VERSION_ID}/$(arch)/cuda-${ID}${VERSION_ID}.repo \
+     -o /etc/yum.repos.d/cuda.repo
+dnf install -y \
+    nvidia-driver-cuda-${VERSION} \
+    nvidia-gpu-firmware
+dnf clean all
+EORUN

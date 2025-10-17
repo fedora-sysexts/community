@@ -1,0 +1,26 @@
+cuda_driver_version := "580.95.05"
+name := "nvidia-driver-cuda-" + cuda_driver_version
+packages := "
+nvidia-driver-cuda-" + cuda_driver_version + "
+nvidia-gpu-firmware
+"
+# Note: the systemd configuration files (currently defined [1]) are only included in the experimental RPM for nvidia-container-toolkit-base>=1.18.0 c.f [2][3]
+# Once version 1.18.0 is promoted to the stable repository, we can remove this local/static configuration and rely entirely on the official RPM package for updates.
+# [1] https://github.com/NVIDIA/nvidia-container-toolkit/tree/6dea491552b4973b9b29ac7ced7dfc20f518de8e/deployments/systemd
+# [2] https://github.com/NVIDIA/libnvidia-container/tree/gh-pages/experimental/rpm/x86_64
+# [3] https://nvidia.github.io/libnvidia-container/experimental/rpm/
+files := "usr"
+upholds := "
+nvidia-persistenced.service
+nvidia-cdi-refresh.service
+"
+pre_commands := "source /etc/os-release"
+external_repos := "https://developer.download.nvidia.com/compute/cuda/repos/fedora\\$VERSION_ID/$(uname -m)/cuda-fedora\\$VERSION_ID.repo"
+version_package := "nvidia-driver-cuda-" + cuda_driver_version
+base_images := "
+quay.io/fedora-ostree-desktops/base-atomic:42 x86_64
+"
+
+import '../sysext.just'
+
+all: default
