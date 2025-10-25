@@ -38,3 +38,14 @@ install-manual:
         ${SUDO} mv lib/systemd/system/tailscaled.service usr/lib/systemd/system/
         ${SUDO} rmdir lib/systemd/system lib/systemd lib
     fi
+
+    # Fix systemd unit using a default config in /etc as needed
+    if [[ -f "etc/default/tailscaled" ]]; then
+        ${SUDO} install -d -m 0755 -o 0 -g 0 usr/lib/systemd/system/tailscaled.service.d
+        ${SUDO} tee usr/lib/systemd/system/tailscaled.service.d/sysext.conf << 'EOF'
+    [Service]
+    EnvironmentFile=
+    EnvironmentFile=/usr/etc/default/tailscaled
+    EnvironmentFile=-/etc/default/tailscaled
+    EOF
+    fi
