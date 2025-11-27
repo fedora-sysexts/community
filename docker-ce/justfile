@@ -11,7 +11,6 @@ docker.socket
 "
 external_repos := "https://download.docker.com/linux/fedora/docker-ce.repo"
 base_images := "
-quay.io/fedora-ostree-desktops/base-atomic:41 x86_64,aarch64
 quay.io/fedora-ostree-desktops/base-atomic:42 x86_64,aarch64
 "
 
