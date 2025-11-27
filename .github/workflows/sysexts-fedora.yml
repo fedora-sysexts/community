@@ -233,6 +233,12 @@ jobs:
           sysext: '1password-cli'
           image: ${{ env.IMAGE }}
 
+      - name: "Build sysext: 1password-gui"
+        uses: ./.github/actions/build
+        with:
+          sysext: '1password-gui'
+          image: ${{ env.IMAGE }}
+
       - name: "Build sysext: bandwhich"
         uses: ./.github/actions/build
         with:
@@ -243,6 +249,12 @@ jobs:
         uses: ./.github/actions/build
         with:
           sysext: 'cilium-cli'
+          image: ${{ env.IMAGE }}
+
+      - name: "Build sysext: cloud-hypervisor"
+        uses: ./.github/actions/build
+        with:
+          sysext: 'cloud-hypervisor'
           image: ${{ env.IMAGE }}
 
       - name: "Build sysext: dnclient"
@@ -368,6 +380,12 @@ jobs:
           sysext: 'cilium-cli'
           image: ${{ env.IMAGE }}
 
+      - name: "Build sysext: cloud-hypervisor"
+        uses: ./.github/actions/build
+        with:
+          sysext: 'cloud-hypervisor'
+          image: ${{ env.IMAGE }}
+
       - name: "Build sysext: dnclient"
         uses: ./.github/actions/build
         with:
@@ -473,6 +491,12 @@ jobs:
           sysext: 'cilium-cli'
           image: ${{ env.IMAGE }}
 
+      - name: "Build sysext: cloud-hypervisor"
+        uses: ./.github/actions/build
+        with:
+          sysext: 'cloud-hypervisor'
+          image: ${{ env.IMAGE }}
+
       - name: "Build sysext: dnclient"
         uses: ./.github/actions/build
         with:
@@ -540,8 +564,6 @@ jobs:
       options: "--privileged --security-opt label=disable --user 0:0"
     # Run after the builds and versionned release
     needs:
-      - build-fedora-41-x86_64
-      - build-fedora-41-aarch64
       - build-fedora-42-x86_64
       - build-fedora-42-aarch64
       - build-fedora-43-x86_64
