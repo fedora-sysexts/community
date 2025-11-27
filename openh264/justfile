@@ -5,10 +5,6 @@ openh264
 "
 enable_repos := "fedora-cisco-openh264"
 version_package := "openh264"
-base_images := "
-quay.io/fedora-ostree-desktops/base-atomic:42 x86_64,aarch64
-quay.io/fedora-ostree-desktops/base-atomic:43 x86_64,aarch64
-"
 
 import '../sysext.just'
 
