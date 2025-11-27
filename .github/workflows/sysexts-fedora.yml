@@ -233,6 +233,12 @@ jobs:
           sysext: '1password-cli'
           image: ${{ env.IMAGE }}
 
+      - name: "Build sysext: 1password-gui"
+        uses: ./.github/actions/build
+        with:
+          sysext: '1password-gui'
+          image: ${{ env.IMAGE }}
+
       - name: "Build sysext: bandwhich"
         uses: ./.github/actions/build
         with:
