@@ -164,6 +164,12 @@ jobs:
           sysext: 'openh264'
           image: ${{ env.IMAGE }}
 
+      - name: "Build sysext: qutebrowser"
+        uses: ./.github/actions/build
+        with:
+          sysext: 'qutebrowser'
+          image: ${{ env.IMAGE }}
+
       - name: "Build sysext: tailscale"
         uses: ./.github/actions/build
         with:
