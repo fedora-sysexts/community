@@ -3,6 +3,7 @@ packages := "bitwarden"
 pre_commands := "rm -rf /opt; mkdir /opt"
 base_images := "
 quay.io/fedora-ostree-desktops/base-atomic:42 x86_64
+quay.io/fedora-ostree-desktops/base-atomic:43 x86_64
 "
 
 import '../sysext.just'

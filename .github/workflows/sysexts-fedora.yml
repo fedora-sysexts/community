@@ -251,6 +251,12 @@ jobs:
           sysext: 'bandwhich'
           image: ${{ env.IMAGE }}
 
+      - name: "Build sysext: bitwarden"
+        uses: ./.github/actions/build
+        with:
+          sysext: 'bitwarden'
+          image: ${{ env.IMAGE }}
+
       - name: "Build sysext: cilium-cli"
         uses: ./.github/actions/build
         with:
@@ -269,6 +275,12 @@ jobs:
           sysext: 'dnclient'
           image: ${{ env.IMAGE }}
 
+      - name: "Build sysext: docker-ce"
+        uses: ./.github/actions/build
+        with:
+          sysext: 'docker-ce'
+          image: ${{ env.IMAGE }}
+
       - name: "Build sysext: glab"
         uses: ./.github/actions/build
         with:
@@ -279,6 +291,12 @@ jobs:
         uses: ./.github/actions/build
         with:
           sysext: 'google-chrome'
+          image: ${{ env.IMAGE }}
+
+      - name: "Build sysext: incus"
+        uses: ./.github/actions/build
+        with:
+          sysext: 'incus'
           image: ${{ env.IMAGE }}
 
       - name: "Build sysext: microsoft-edge"
@@ -317,10 +335,22 @@ jobs:
           sysext: 'openh264'
           image: ${{ env.IMAGE }}
 
+      - name: "Build sysext: qutebrowser"
+        uses: ./.github/actions/build
+        with:
+          sysext: 'qutebrowser'
+          image: ${{ env.IMAGE }}
+
       - name: "Build sysext: tailscale"
         uses: ./.github/actions/build
         with:
           sysext: 'tailscale'
+          image: ${{ env.IMAGE }}
+
+      - name: "Build sysext: vagrant"
+        uses: ./.github/actions/build
+        with:
+          sysext: 'vagrant'
           image: ${{ env.IMAGE }}
 
       - name: "Build sysext: virtctl"
@@ -509,10 +539,22 @@ jobs:
           sysext: 'dnclient'
           image: ${{ env.IMAGE }}
 
+      - name: "Build sysext: docker-ce"
+        uses: ./.github/actions/build
+        with:
+          sysext: 'docker-ce'
+          image: ${{ env.IMAGE }}
+
       - name: "Build sysext: glab"
         uses: ./.github/actions/build
         with:
           sysext: 'glab'
+          image: ${{ env.IMAGE }}
+
+      - name: "Build sysext: incus"
+        uses: ./.github/actions/build
+        with:
+          sysext: 'incus'
           image: ${{ env.IMAGE }}
 
       - name: "Build sysext: mullvad-vpn"
