@@ -22,7 +22,7 @@ download-rpms target arch=arch:
 
     echo "⬇️ Downloading VSCodium"
     url="https://api.github.com/repos/VSCodium/vscodium/releases/latest"
-    retry 5 60  curl --fail --silent "${url}" > json
+    retry 5 60 curl --fail --silent "${url}" --output json
     release="$(cat json | jq -r '.tag_name')"
     rpmurl="$(cat json | jq -r '.assets[] | select(.name == "codium-'${release}'-el8.'${arch}'.rpm") | .browser_download_url')"
     wget "${rpmurl}"{,.sha256}
