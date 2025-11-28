@@ -1,0 +1,9 @@
+FROM baseimage
+
+RUN <<EORUN
+set -xeuo pipefail
+dnf install -y dnf5-plugins
+dnf copr enable -y scottames/ghostty
+dnf install -y ghostty
+dnf clean all
+EORUN
