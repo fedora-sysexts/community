@@ -140,6 +140,18 @@ jobs:
           sysext: 'mullvad-vpn'
           image: ${{ env.IMAGE }}
 
+      - name: "Build sysext: netbird-ui"
+        uses: ./.github/actions/build
+        with:
+          sysext: 'netbird-ui'
+          image: ${{ env.IMAGE }}
+
+      - name: "Build sysext: netbird"
+        uses: ./.github/actions/build
+        with:
+          sysext: 'netbird'
+          image: ${{ env.IMAGE }}
+
       - name: "Build sysext: nordvpn-gui"
         uses: ./.github/actions/build
         with:
@@ -321,6 +333,18 @@ jobs:
         uses: ./.github/actions/build
         with:
           sysext: 'mullvad-vpn'
+          image: ${{ env.IMAGE }}
+
+      - name: "Build sysext: netbird-ui"
+        uses: ./.github/actions/build
+        with:
+          sysext: 'netbird-ui'
+          image: ${{ env.IMAGE }}
+
+      - name: "Build sysext: netbird"
+        uses: ./.github/actions/build
+        with:
+          sysext: 'netbird'
           image: ${{ env.IMAGE }}
 
       - name: "Build sysext: nordvpn-gui"
