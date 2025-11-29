@@ -1,0 +1,9 @@
+name := "ghostty"
+packages := "
+ghostty
+"
+copr_repos := "scottames/ghostty"
+
+import '../sysext.just'
+
+all: default
