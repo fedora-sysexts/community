@@ -104,6 +104,12 @@ jobs:
           sysext: 'docker-ce'
           image: ${{ env.IMAGE }}
 
+      - name: "Build sysext: ghostty"
+        uses: ./.github/actions/build
+        with:
+          sysext: 'ghostty'
+          image: ${{ env.IMAGE }}
+
       - name: "Build sysext: glab"
         uses: ./.github/actions/build
         with:
@@ -281,6 +287,12 @@ jobs:
           sysext: 'docker-ce'
           image: ${{ env.IMAGE }}
 
+      - name: "Build sysext: ghostty"
+        uses: ./.github/actions/build
+        with:
+          sysext: 'ghostty'
+          image: ${{ env.IMAGE }}
+
       - name: "Build sysext: glab"
         uses: ./.github/actions/build
         with:
@@ -428,6 +440,12 @@ jobs:
           sysext: 'docker-ce'
           image: ${{ env.IMAGE }}
 
+      - name: "Build sysext: ghostty"
+        uses: ./.github/actions/build
+        with:
+          sysext: 'ghostty'
+          image: ${{ env.IMAGE }}
+
       - name: "Build sysext: glab"
         uses: ./.github/actions/build
         with:
@@ -537,6 +555,12 @@ jobs:
         uses: ./.github/actions/build
         with:
           sysext: 'docker-ce'
+          image: ${{ env.IMAGE }}
+
+      - name: "Build sysext: ghostty"
+        uses: ./.github/actions/build
+        with:
+          sysext: 'ghostty'
           image: ${{ env.IMAGE }}
 
       - name: "Build sysext: glab"
