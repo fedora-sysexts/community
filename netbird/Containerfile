@@ -1,0 +1,9 @@
+FROM baseimage
+
+RUN <<EORUN
+set -xeuo pipefail
+rpm --import https://pkgs.netbird.io/yum/repodata/repomd.xml.key
+echo -e '[netbird]\nname=netbird\nbaseurl=https://pkgs.netbird.io/yum/\nenabled=1\ngpgcheck=0\ngpgkey=https://pkgs.netbird.io/yum/repodata/repomd.xml.key\repo_gpgcheck=1' | tee /etc/yum.repos.d/netbird.repo > /dev/null
+dnf install -y netbird
+dnf clean all
+EORUN

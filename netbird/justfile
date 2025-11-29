@@ -1,0 +1,35 @@
+name := "netbird"
+packages := "netbird"
+pre_commands := "rpm --import https://pkgs.netbird.io/yum/repodata/repomd.xml.key; echo -e '[netbird]\nname=netbird\nbaseurl=https://pkgs.netbird.io/yum/\nenabled=1\ngpgcheck=0\ngpgkey=https://pkgs.netbird.io/yum/repodata/repomd.xml.key\repo_gpgcheck=1' | tee /etc/yum.repos.d/netbird.repo > /dev/null"
+base_images := "
+quay.io/fedora-ostree-desktops/base-atomic:42 x86_64
+quay.io/fedora-ostree-desktops/base-atomic:43 x86_64
+"
+
+import '../sysext.just'
+
+all: default
+
+# Custom version logic as the package file name does not follow the expected convention
+version:
+    #!/bin/bash
+    set -euo pipefail
+    if [[ -n "{{debug}}" ]]; then
+      set -x
+    fi
+
+    package_version() {
+        rpm="${1}"
+        epoch="$(rpm -qp --queryformat '%{EPOCH}' ${rpm})"
+        version="$(rpm -qp --queryformat '%{VERSION}-%{RELEASE}' ${rpm})"
+        if [[ "${epoch}" == "(none)" ]]; then
+            epoch=""
+        else
+            epoch="${epoch}-"
+        fi
+        echo "${epoch}${version}" > ./version
+    }
+
+    echo "🏷️ Writing down version"
+
+    package_version rpms/netbird*.rpm
