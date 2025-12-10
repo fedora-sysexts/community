@@ -122,12 +122,6 @@ jobs:
           sysext: 'google-chrome'
           image: ${{ env.IMAGE }}
 
-      - name: "Build sysext: incus"
-        uses: ./.github/actions/build
-        with:
-          sysext: 'incus'
-          image: ${{ env.IMAGE }}
-
       - name: "Build sysext: microsoft-edge"
         uses: ./.github/actions/build
         with:
@@ -317,12 +311,6 @@ jobs:
           sysext: 'google-chrome'
           image: ${{ env.IMAGE }}
 
-      - name: "Build sysext: incus"
-        uses: ./.github/actions/build
-        with:
-          sysext: 'incus'
-          image: ${{ env.IMAGE }}
-
       - name: "Build sysext: microsoft-edge"
         uses: ./.github/actions/build
         with:
@@ -476,12 +464,6 @@ jobs:
           sysext: 'glab'
           image: ${{ env.IMAGE }}
 
-      - name: "Build sysext: incus"
-        uses: ./.github/actions/build
-        with:
-          sysext: 'incus'
-          image: ${{ env.IMAGE }}
-
       - name: "Build sysext: mullvad-vpn"
         uses: ./.github/actions/build
         with:
@@ -591,12 +573,6 @@ jobs:
         uses: ./.github/actions/build
         with:
           sysext: 'glab'
-          image: ${{ env.IMAGE }}
-
-      - name: "Build sysext: incus"
-        uses: ./.github/actions/build
-        with:
-          sysext: 'incus'
           image: ${{ env.IMAGE }}
 
       - name: "Build sysext: mullvad-vpn"
