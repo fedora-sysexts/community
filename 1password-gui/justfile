@@ -1,26 +1,52 @@
 name := "1password-gui"
-packages := "1password"
-pre_commands := "rm -rf /opt; mkdir /opt"
-base_images := "
-quay.io/fedora-ostree-desktops/base-atomic:42 x86_64
-quay.io/fedora-ostree-desktops/base-atomic:43 x86_64
-"
+packages := ""
 
 import '../sysext.just'
 
 all: default
 
-download-rpms target arch=arch:
+# Download tarball instead of RPM for multi-arch support
+download-manual arch=arch:
     #!/bin/bash
     set -euo pipefail
     if [[ -n "{{debug}}" ]]; then
       set -x
     fi
 
-    mkdir -p rpms
-    curl --location --fail --output rpms/1password.rpm \
-        "https://downloads.1password.com/linux/rpm/stable/x86_64/1password-latest.rpm"
+    mkdir -p binaries
 
+    # Map architecture names
+    if [[ "{{arch}}" == "x86_64" ]]; then
+        dl_arch="x86_64"
+    elif [[ "{{arch}}" == "aarch64" ]]; then
+        dl_arch="aarch64"
+    else
+        echo "Unsupported architecture: {{arch}}"
+        exit 1
+    fi
+
+    echo "Downloading 1Password tarball for ${dl_arch}..."
+    curl --location --fail --output binaries/1password.tar.gz \
+        "https://downloads.1password.com/linux/tar/stable/${dl_arch}/1password-latest.tar.gz"
+
+# Extract version from tarball
+version:
+    #!/bin/bash
+    set -euo pipefail
+    if [[ -n "{{debug}}" ]]; then
+      set -x
+    fi
+
+    # Extract version from the tarball directory name (e.g., 1password-8.11.22.x64/)
+    # Disable pipefail temporarily to avoid SIGPIPE from tar | head
+    set +o pipefail
+    dirname=$(tar -tzf binaries/1password.tar.gz | head -1 | tr -d '/')
+    set -o pipefail
+    # Remove 1password- prefix and architecture suffix (.x64, .arm64, etc.)
+    version=$(echo "${dirname}" | sed -E 's|1password-([0-9.]+)\..*|\1|')
+    echo "${version}" > ./version
+
+# Install from tarball
 install-manual:
     #!/bin/bash
     set -euo pipefail
@@ -36,11 +62,33 @@ install-manual:
 
     cd rootfs
 
-    ${SUDO} mv opt/1Password usr/lib/1Password
-    ${SUDO} rmdir opt
-    ${SUDO} mkdir usr/bin
+    # Extract tarball to /usr/lib/1Password (not /opt which doesn't exist on atomic systems)
+    ${SUDO} mkdir -p usr/lib/1Password
+    ${SUDO} tar -xzf ../binaries/1password.tar.gz -C usr/lib/1Password --strip-components=1
+
+    # Create polkit policy from template
+    # The policy template uses POLICY_OWNERS but we leave it empty for sysext
+    ${SUDO} sed 's/\${POLICY_OWNERS}//g' usr/lib/1Password/com.1password.1Password.policy.tpl \
+        > usr/lib/1Password/com.1password.1Password.policy
+    ${SUDO} install -Dm0644 usr/lib/1Password/com.1password.1Password.policy \
+        -t usr/share/polkit-1/actions/
+
+    # Install desktop file
+    ${SUDO} mkdir -p usr/share/applications
+    ${SUDO} install -m0644 usr/lib/1Password/resources/1password.desktop usr/share/applications/
+
+    # Install icons
+    ${SUDO} mkdir -p usr/share/icons
+    ${SUDO} cp -rf usr/lib/1Password/resources/icons/* usr/share/icons/
+
+    # Create symlinks in /usr/bin
+    ${SUDO} mkdir -p usr/bin
     ${SUDO} ln -sf /usr/lib/1Password/1password usr/bin/1password
     ${SUDO} ln -sf /usr/lib/1Password/1Password-BrowserSupport usr/bin/1Password-BrowserSupport
     ${SUDO} ln -sf /usr/lib/1Password/1Password-Crash-Handler usr/bin/1Password-Crash-Handler
+
+    # Set chrome-sandbox permissions (required by Electron)
     ${SUDO} chmod 4755 usr/lib/1Password/chrome-sandbox
+
+    # Fix desktop file paths from /opt to /usr/bin
     ${SUDO} sed -i 's|^Exec=/opt/1Password|Exec=/usr/bin|g' usr/share/applications/1password.desktop

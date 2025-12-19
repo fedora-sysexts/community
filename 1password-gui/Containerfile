@@ -2,16 +2,26 @@ FROM baseimage
 
 RUN <<EORUN
 set -xeuo pipefail
-mv /opt{,.bak}
-mkdir /opt
-dnf install -y "https://downloads.1password.com/linux/rpm/stable/x86_64/1password-latest.rpm"
-mv /opt/1Password /usr/lib/1Password
+
+# Download and extract tarball (supports both x86_64 and aarch64)
+curl -fL "https://downloads.1password.com/linux/tar/stable/$(uname -m)/1password-latest.tar.gz" -o /tmp/1password.tar.gz
+mkdir -p /usr/lib/1Password
+tar -xzf /tmp/1password.tar.gz -C /usr/lib/1Password --strip-components=1
+
+# Run after-install script for desktop integration
+bash /usr/lib/1Password/after-install.sh
+
+# Create symlinks
 ln -sf /usr/lib/1Password/1password /usr/bin/1password
 ln -sf /usr/lib/1Password/1Password-BrowserSupport /usr/bin/1Password-BrowserSupport
 ln -sf /usr/lib/1Password/1Password-Crash-Handler /usr/bin/1Password-Crash-Handler
+
+# Set chrome-sandbox permissions
 chmod 4755 /usr/lib/1Password/chrome-sandbox
+
+# Fix desktop file paths
 sed -i 's|^Exec=/opt/1Password|Exec=/usr/bin|g' /usr/share/applications/1password.desktop
-rmdir /opt
-mv /opt{.bak,}
-dnf clean all
+
+# Cleanup
+rm -f /tmp/1password.tar.gz
 EORUN
