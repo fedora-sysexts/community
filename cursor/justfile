@@ -1,0 +1,7 @@
+name := "cursor"
+packages := "cursor"
+pre_commands := "rpm --import https://downloads.cursor.com/keys/anysphere.asc; echo -e '[cursor]\nname=Cursor\nbaseurl=https://downloads.cursor.com/yumrepo\nenabled=1\ngpgcheck=1\ngpgkey=https://downloads.cursor.com/keys/anysphere.asc' | tee /etc/yum.repos.d/cursor.repo > /dev/null"
+
+import '../sysext.just'
+
+all: default
