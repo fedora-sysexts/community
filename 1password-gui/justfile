@@ -92,3 +92,15 @@ install-manual:
 
     # Fix desktop file paths from /opt to /usr/bin
     ${SUDO} sed -i 's|^Exec=/opt/1Password|Exec=/usr/bin|g' usr/share/applications/1password.desktop
+
+    # Create sysusers.d config for browser integration group
+    ${SUDO} mkdir -p usr/lib/sysusers.d
+    echo 'g onepassword -' | ${SUDO} tee usr/lib/sysusers.d/1password.conf
+
+    # Create tmpfiles.d config to copy BrowserSupport with setgid permissions
+    ${SUDO} mkdir -p usr/lib/tmpfiles.d
+    cat << 'EOF' | ${SUDO} tee usr/lib/tmpfiles.d/1password.conf
+# Copy BrowserSupport binary with setgid for browser integration
+d /var/lib/1password 0755 root root -
+C /var/lib/1password/1Password-BrowserSupport 2755 root onepassword - /usr/lib/1Password/1Password-BrowserSupport
+EOF

@@ -22,6 +22,19 @@ chmod 4755 /usr/lib/1Password/chrome-sandbox
 # Fix desktop file paths
 sed -i 's|^Exec=/opt/1Password|Exec=/usr/bin|g' /usr/share/applications/1password.desktop
 
+# Create sysusers.d config for browser integration group
+mkdir -p /usr/lib/sysusers.d
+echo 'g onepassword -' > /usr/lib/sysusers.d/1password.conf
+
+# Create tmpfiles.d config to copy BrowserSupport with setgid permissions
+# This runs at boot after sysusers.d creates the group
+mkdir -p /usr/lib/tmpfiles.d
+cat > /usr/lib/tmpfiles.d/1password.conf << 'EOF'
+# Copy BrowserSupport binary with setgid for browser integration
+d /var/lib/1password 0755 root root -
+C /var/lib/1password/1Password-BrowserSupport 2755 root onepassword - /usr/lib/1Password/1Password-BrowserSupport
+EOF
+
 # Cleanup
 rm -f /tmp/1password.tar.gz
 EORUN
