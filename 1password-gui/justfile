@@ -99,8 +99,6 @@ install-manual:
 
     # Create tmpfiles.d config to copy BrowserSupport with setgid permissions
     ${SUDO} mkdir -p usr/lib/tmpfiles.d
-    cat << 'EOF' | ${SUDO} tee usr/lib/tmpfiles.d/1password.conf
-# Copy BrowserSupport binary with setgid for browser integration
-d /var/lib/1password 0755 root root -
-C /var/lib/1password/1Password-BrowserSupport 2755 root onepassword - /usr/lib/1Password/1Password-BrowserSupport
-EOF
+    echo '# Copy BrowserSupport binary with setgid for browser integration' | ${SUDO} tee usr/lib/tmpfiles.d/1password.conf
+    echo 'd /var/lib/1password 0755 root root -' | ${SUDO} tee -a usr/lib/tmpfiles.d/1password.conf
+    echo 'C /var/lib/1password/1Password-BrowserSupport 2755 root onepassword - /usr/lib/1Password/1Password-BrowserSupport' | ${SUDO} tee -a usr/lib/tmpfiles.d/1password.conf
