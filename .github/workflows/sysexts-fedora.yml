@@ -92,6 +92,12 @@ jobs:
           sysext: 'cloud-hypervisor'
           image: ${{ env.IMAGE }}
 
+      - name: "Build sysext: cursor"
+        uses: ./.github/actions/build
+        with:
+          sysext: 'cursor'
+          image: ${{ env.IMAGE }}
+
       - name: "Build sysext: dnclient"
         uses: ./.github/actions/build
         with:
@@ -275,6 +281,12 @@ jobs:
           sysext: 'cloud-hypervisor'
           image: ${{ env.IMAGE }}
 
+      - name: "Build sysext: cursor"
+        uses: ./.github/actions/build
+        with:
+          sysext: 'cursor'
+          image: ${{ env.IMAGE }}
+
       - name: "Build sysext: dnclient"
         uses: ./.github/actions/build
         with:
@@ -434,6 +446,12 @@ jobs:
           sysext: 'cloud-hypervisor'
           image: ${{ env.IMAGE }}
 
+      - name: "Build sysext: cursor"
+        uses: ./.github/actions/build
+        with:
+          sysext: 'cursor'
+          image: ${{ env.IMAGE }}
+
       - name: "Build sysext: dnclient"
         uses: ./.github/actions/build
         with:
@@ -543,6 +561,12 @@ jobs:
         uses: ./.github/actions/build
         with:
           sysext: 'cloud-hypervisor'
+          image: ${{ env.IMAGE }}
+
+      - name: "Build sysext: cursor"
+        uses: ./.github/actions/build
+        with:
+          sysext: 'cursor'
           image: ${{ env.IMAGE }}
 
       - name: "Build sysext: dnclient"
