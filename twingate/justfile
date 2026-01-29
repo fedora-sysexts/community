@@ -1,0 +1,10 @@
+name := "twingate"
+packages := "twingate"
+pre_commands := "dnf config-manager addrepo --id='twingate' --set=name='Twingate' --set=baseurl='https://packages.twingate.com/rpm/' && dnf config-manager setopt twingate.gpgcheck=0"
+upholds := "
+twingate.service
+"
+
+import '../sysext.just'
+
+all: default
