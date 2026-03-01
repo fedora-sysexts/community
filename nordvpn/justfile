@@ -36,3 +36,8 @@ install-manual:
     ${SUDO} chmod 644 usr/lib/tmpfiles.d/nordvpn.conf
     # Remove service mask
     ${SUDO} rm usr/lib/systemd/system/nordvpn.service
+    # nordvpnd links against the unversioned libsqlite3.so soname, but Fedora
+    # only ships libsqlite3.so.0.  Since LD_LIBRARY_PATH already includes
+    # /usr/lib/nordvpn/, place the shim symlink there so the dynamic linker
+    # finds it without any host-side ldconfig changes.
+    ${SUDO} ln -sf /lib64/libsqlite3.so.0 usr/lib/nordvpn/libsqlite3.so
