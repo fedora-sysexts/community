@@ -395,6 +395,159 @@ jobs:
           sysext: 'youki'
           image: ${{ env.IMAGE }}
 
+  build-fedora-44-x86_64:
+    runs-on: "ubuntu-24.04"
+    container:
+      image: "ghcr.io/fedora-sysexts/buildroot:latest"
+      options: "--privileged --security-opt label=disable --user 0:0"
+    env:
+      IMAGE: "quay.io/fedora-ostree-desktops/base-atomic:44"
+      FORCE_REBUILD: ${{ inputs.force-rebuild }}
+    steps:
+      - name: "Checkout repo"
+        uses: actions/checkout@v6
+
+      - name: "Setup artifacts and dnf cache directories"
+        run: |
+          mkdir -p artifacts .dnf-cache
+
+      - name: "Mark directory as safe"
+        run: |
+          git config --global --add safe.directory "$GITHUB_WORKSPACE"
+          git fetch --no-tags --prune --depth=1 origin +refs/heads/main:refs/remotes/origin/main
+
+      - name: "Build sysext: 1password-cli"
+        uses: ./.github/actions/build
+        with:
+          sysext: '1password-cli'
+          image: ${{ env.IMAGE }}
+
+      - name: "Build sysext: 1password-gui"
+        uses: ./.github/actions/build
+        with:
+          sysext: '1password-gui'
+          image: ${{ env.IMAGE }}
+
+      - name: "Build sysext: bandwhich"
+        uses: ./.github/actions/build
+        with:
+          sysext: 'bandwhich'
+          image: ${{ env.IMAGE }}
+
+      - name: "Build sysext: bitwarden"
+        uses: ./.github/actions/build
+        with:
+          sysext: 'bitwarden'
+          image: ${{ env.IMAGE }}
+
+      - name: "Build sysext: cilium-cli"
+        uses: ./.github/actions/build
+        with:
+          sysext: 'cilium-cli'
+          image: ${{ env.IMAGE }}
+
+      - name: "Build sysext: dnclient"
+        uses: ./.github/actions/build
+        with:
+          sysext: 'dnclient'
+          image: ${{ env.IMAGE }}
+
+      - name: "Build sysext: ghostty"
+        uses: ./.github/actions/build
+        with:
+          sysext: 'ghostty'
+          image: ${{ env.IMAGE }}
+
+      - name: "Build sysext: glab"
+        uses: ./.github/actions/build
+        with:
+          sysext: 'glab'
+          image: ${{ env.IMAGE }}
+
+      - name: "Build sysext: google-chrome"
+        uses: ./.github/actions/build
+        with:
+          sysext: 'google-chrome'
+          image: ${{ env.IMAGE }}
+
+      - name: "Build sysext: microsoft-edge"
+        uses: ./.github/actions/build
+        with:
+          sysext: 'microsoft-edge'
+          image: ${{ env.IMAGE }}
+
+      - name: "Build sysext: mullvad-vpn"
+        uses: ./.github/actions/build
+        with:
+          sysext: 'mullvad-vpn'
+          image: ${{ env.IMAGE }}
+
+      - name: "Build sysext: netbird-ui"
+        uses: ./.github/actions/build
+        with:
+          sysext: 'netbird-ui'
+          image: ${{ env.IMAGE }}
+
+      - name: "Build sysext: netbird"
+        uses: ./.github/actions/build
+        with:
+          sysext: 'netbird'
+          image: ${{ env.IMAGE }}
+
+      - name: "Build sysext: nordvpn-gui"
+        uses: ./.github/actions/build
+        with:
+          sysext: 'nordvpn-gui'
+          image: ${{ env.IMAGE }}
+
+      - name: "Build sysext: nordvpn"
+        uses: ./.github/actions/build
+        with:
+          sysext: 'nordvpn'
+          image: ${{ env.IMAGE }}
+
+      - name: "Build sysext: openconnect"
+        uses: ./.github/actions/build
+        with:
+          sysext: 'openconnect'
+          image: ${{ env.IMAGE }}
+
+      - name: "Build sysext: tailscale"
+        uses: ./.github/actions/build
+        with:
+          sysext: 'tailscale'
+          image: ${{ env.IMAGE }}
+
+      - name: "Build sysext: virtctl"
+        uses: ./.github/actions/build
+        with:
+          sysext: 'virtctl'
+          image: ${{ env.IMAGE }}
+
+      - name: "Build sysext: vscode"
+        uses: ./.github/actions/build
+        with:
+          sysext: 'vscode'
+          image: ${{ env.IMAGE }}
+
+      - name: "Build sysext: vscodium"
+        uses: ./.github/actions/build
+        with:
+          sysext: 'vscodium'
+          image: ${{ env.IMAGE }}
+
+      - name: "Build sysext: wasmtime"
+        uses: ./.github/actions/build
+        with:
+          sysext: 'wasmtime'
+          image: ${{ env.IMAGE }}
+
+      - name: "Build sysext: youki"
+        uses: ./.github/actions/build
+        with:
+          sysext: 'youki'
+          image: ${{ env.IMAGE }}
+
   build-fedora-42-aarch64:
     runs-on: "ubuntu-24.04-arm"
     container:
@@ -579,6 +732,99 @@ jobs:
         uses: ./.github/actions/build
         with:
           sysext: 'openh264'
+          image: ${{ env.IMAGE }}
+
+      - name: "Build sysext: tailscale"
+        uses: ./.github/actions/build
+        with:
+          sysext: 'tailscale'
+          image: ${{ env.IMAGE }}
+
+      - name: "Build sysext: virtctl"
+        uses: ./.github/actions/build
+        with:
+          sysext: 'virtctl'
+          image: ${{ env.IMAGE }}
+
+      - name: "Build sysext: vscode"
+        uses: ./.github/actions/build
+        with:
+          sysext: 'vscode'
+          image: ${{ env.IMAGE }}
+
+      - name: "Build sysext: vscodium"
+        uses: ./.github/actions/build
+        with:
+          sysext: 'vscodium'
+          image: ${{ env.IMAGE }}
+
+      - name: "Build sysext: wasmtime"
+        uses: ./.github/actions/build
+        with:
+          sysext: 'wasmtime'
+          image: ${{ env.IMAGE }}
+
+      - name: "Build sysext: youki"
+        uses: ./.github/actions/build
+        with:
+          sysext: 'youki'
+          image: ${{ env.IMAGE }}
+
+  build-fedora-44-aarch64:
+    runs-on: "ubuntu-24.04-arm"
+    container:
+      image: "ghcr.io/fedora-sysexts/buildroot:latest"
+      options: "--privileged --security-opt label=disable --user 0:0"
+    env:
+      IMAGE: "quay.io/fedora-ostree-desktops/base-atomic:44"
+      FORCE_REBUILD: ${{ inputs.force-rebuild }}
+    steps:
+      - name: "Checkout repo"
+        uses: actions/checkout@v6
+
+      - name: "Setup artifacts and dnf cache directories"
+        run: |
+          mkdir -p artifacts .dnf-cache
+
+      - name: "Mark directory as safe"
+        run: |
+          git config --global --add safe.directory "$GITHUB_WORKSPACE"
+          git fetch --no-tags --prune --depth=1 origin +refs/heads/main:refs/remotes/origin/main
+
+      - name: "Build sysext: bandwhich"
+        uses: ./.github/actions/build
+        with:
+          sysext: 'bandwhich'
+          image: ${{ env.IMAGE }}
+
+      - name: "Build sysext: cilium-cli"
+        uses: ./.github/actions/build
+        with:
+          sysext: 'cilium-cli'
+          image: ${{ env.IMAGE }}
+
+      - name: "Build sysext: dnclient"
+        uses: ./.github/actions/build
+        with:
+          sysext: 'dnclient'
+          image: ${{ env.IMAGE }}
+
+      - name: "Build sysext: ghostty"
+        uses: ./.github/actions/build
+        with:
+          sysext: 'ghostty'
+          image: ${{ env.IMAGE }}
+
+      - name: "Build sysext: glab"
+        uses: ./.github/actions/build
+        with:
+          sysext: 'glab'
+          image: ${{ env.IMAGE }}
+
+      - name: "Build sysext: mullvad-vpn"
+        uses: ./.github/actions/build
+        with:
+          sysext: 'mullvad-vpn'
           image: ${{ env.IMAGE }}
 
       - name: "Build sysext: tailscale"
