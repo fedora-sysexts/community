@@ -206,6 +206,12 @@ jobs:
           sysext: 'wasmtime'
           image: ${{ env.IMAGE }}
 
+      - name: "Build sysext: yggdrasil"
+        uses: ./.github/actions/build
+        with:
+          sysext: 'yggdrasil'
+          image: ${{ env.IMAGE }}
+
       - name: "Build sysext: youki"
         uses: ./.github/actions/build
         with:
@@ -383,6 +389,12 @@ jobs:
           sysext: 'wasmtime'
           image: ${{ env.IMAGE }}
 
+      - name: "Build sysext: yggdrasil"
+        uses: ./.github/actions/build
+        with:
+          sysext: 'yggdrasil'
+          image: ${{ env.IMAGE }}
+
       - name: "Build sysext: youki"
         uses: ./.github/actions/build
         with:
@@ -536,6 +548,12 @@ jobs:
           sysext: 'wasmtime'
           image: ${{ env.IMAGE }}
 
+      - name: "Build sysext: yggdrasil"
+        uses: ./.github/actions/build
+        with:
+          sysext: 'yggdrasil'
+          image: ${{ env.IMAGE }}
+
       - name: "Build sysext: youki"
         uses: ./.github/actions/build
         with:
@@ -639,6 +657,12 @@ jobs:
         uses: ./.github/actions/build
         with:
           sysext: 'wasmtime'
+          image: ${{ env.IMAGE }}
+
+      - name: "Build sysext: yggdrasil"
+        uses: ./.github/actions/build
+        with:
+          sysext: 'yggdrasil'
           image: ${{ env.IMAGE }}
 
       - name: "Build sysext: youki"
@@ -752,6 +776,12 @@ jobs:
           sysext: 'wasmtime'
           image: ${{ env.IMAGE }}
 
+      - name: "Build sysext: yggdrasil"
+        uses: ./.github/actions/build
+        with:
+          sysext: 'yggdrasil'
+          image: ${{ env.IMAGE }}
+
       - name: "Build sysext: youki"
         uses: ./.github/actions/build
         with:
@@ -843,6 +873,12 @@ jobs:
         uses: ./.github/actions/build
         with:
           sysext: 'wasmtime'
+          image: ${{ env.IMAGE }}
+
+      - name: "Build sysext: yggdrasil"
+        uses: ./.github/actions/build
+        with:
+          sysext: 'yggdrasil'
           image: ${{ env.IMAGE }}
 
       - name: "Build sysext: youki"
