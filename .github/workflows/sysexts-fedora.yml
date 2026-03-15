@@ -218,6 +218,12 @@ jobs:
           sysext: 'youki'
           image: ${{ env.IMAGE }}
 
+      - name: "Build sysext: yggdrasil"
+        uses: ./.github/actions/build
+        with:
+          sysext: 'yggdrasil'
+          image: ${{ env.IMAGE }}
+
   build-fedora-43-x86_64:
     runs-on: "ubuntu-24.04"
     container:
@@ -395,6 +401,12 @@ jobs:
           sysext: 'youki'
           image: ${{ env.IMAGE }}
 
+      - name: "Build sysext: yggdrasil"
+        uses: ./.github/actions/build
+        with:
+          sysext: 'yggdrasil'
+          image: ${{ env.IMAGE }}
+
   build-fedora-44-x86_64:
     runs-on: "ubuntu-24.04"
     container:
@@ -548,6 +560,12 @@ jobs:
           sysext: 'youki'
           image: ${{ env.IMAGE }}
 
+      - name: "Build sysext: yggdrasil"
+        uses: ./.github/actions/build
+        with:
+          sysext: 'yggdrasil'
+          image: ${{ env.IMAGE }}
+
   build-fedora-42-aarch64:
     runs-on: "ubuntu-24.04-arm"
     container:
@@ -657,6 +675,12 @@ jobs:
         uses: ./.github/actions/build
         with:
           sysext: 'youki'
+          image: ${{ env.IMAGE }}
+
+      - name: "Build sysext: yggdrasil"
+        uses: ./.github/actions/build
+        with:
+          sysext: 'yggdrasil'
           image: ${{ env.IMAGE }}
 
   build-fedora-43-aarch64:
@@ -770,6 +794,12 @@ jobs:
           sysext: 'youki'
           image: ${{ env.IMAGE }}
 
+      - name: "Build sysext: yggdrasil"
+        uses: ./.github/actions/build
+        with:
+          sysext: 'yggdrasil'
+          image: ${{ env.IMAGE }}
+
   build-fedora-44-aarch64:
     runs-on: "ubuntu-24.04-arm"
     container:
@@ -861,6 +891,12 @@ jobs:
         uses: ./.github/actions/build
         with:
           sysext: 'youki'
+          image: ${{ env.IMAGE }}
+
+      - name: "Build sysext: yggdrasil"
+        uses: ./.github/actions/build
+        with:
+          sysext: 'yggdrasil'
           image: ${{ env.IMAGE }}
 
   publish-sysexts:

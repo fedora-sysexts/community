@@ -1,0 +1,9 @@
+name := "yggdrasil"
+packages := "
+yggdrasil
+"
+copr_repos := "neilalexander/yggdrasil-go"
+
+import '../sysext.just'
+
+all: default
