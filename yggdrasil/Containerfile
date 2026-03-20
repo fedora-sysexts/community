@@ -5,5 +5,7 @@ set -xeuo pipefail
 dnf install -y dnf5-plugins
 dnf copr enable -y neilalexander/yggdrasil-go
 dnf install -y yggdrasil
+mkdir -p /usr/lib/systemd/system
+mv /etc/systemd/system/{yggdrasil-default-config,yggdrasil}.service /usr/lib/systemd/system
 dnf clean all
 EORUN

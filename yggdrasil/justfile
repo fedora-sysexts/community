@@ -7,3 +7,22 @@ copr_repos := "neilalexander/yggdrasil-go"
 import '../sysext.just'
 
 all: default
+
+install-manual:
+    #!/bin/bash
+    set -euo pipefail
+    if [[ -n "{{debug}}" ]]; then
+      set -x
+    fi
+
+    if [[ "${UID}" == "0" ]]; then
+        SUDO=""
+    else
+        SUDO="sudo"
+    fi
+
+    cd rootfs
+
+    ${SUDO} mkdir -p usr/lib/systemd/system
+    ${SUDO} mv etc/systemd/system/{yggdrasil-default-config,yggdrasil}.service usr/lib/systemd/system
+    ${SUDO} rm -rf etc
