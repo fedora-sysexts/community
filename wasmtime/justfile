@@ -5,6 +5,7 @@ import '../sysext.just'
 all: default
 
 # Custom download step to get wasmtime
+# TODO: Automate version bumps
 download-manual arch=arch:
     #!/bin/bash
     set -euo pipefail
@@ -15,13 +16,12 @@ download-manual arch=arch:
     mkdir binaries
     cd binaries
 
-    # TODO
-    version="31.0.0"
     arch="{{arch}}"
+    version="43.0.0"
     if [[ "${arch}" == "x86_64" ]]; then
-        sha256sum="ba5f2aebd96d9d81bdb98e18ba6b98b9519c27256d37b1fce283dae00eef543e"
+        sha256sum="e75a4933253fbc7b027c670b699490f163e3c86784f1db66581ae80fc0eb652c"
     else
-        sha256sum="efcef82b5f4d3a0c78bf14cd8827cef3d3be191c7ff05c5f6949386ff23802cf"
+        sha256sum="1cbec3240f7ee7a7d4bd5bc6248e66035f53d31cdb987bca8a57cb129bc539d9"
     fi
 
     echo "⬇️ Downloading wasmtime"
