@@ -1,0 +1,32 @@
+name := "littlesnitch"
+packages := "littlesnitch"
+upholds := "littlesnitch"
+
+import '../sysext.just'
+
+all: default
+
+# Custom download step to get the RPMs
+# TODO: Automate version bumps
+download-rpms target arch=arch:
+    #!/bin/bash
+    set -euo pipefail
+    if [[ -n "{{debug}}" ]]; then
+      set -x
+    fi
+
+    mkdir rpms
+    cd rpms
+
+    arch="{{arch}}"
+    version="1.0.4-1"
+    if [[ "${arch}" == "x86_64" ]]; then
+        sha256sum="fc116a95d485a3c4af26ddaea05bb2ab2d6b2c6d196c94412a9048c216e098bd"
+    else
+        sha256sum="0368028f45d1dde66d0ba9d85ac69838a29b38a80795bec69a4feb92b6e0d078"
+    fi
+
+    echo "⬇️ Downloading littlesnitch"
+    curl --location --fail --output "littlesnitch-${version}.${arch}.rpm" \
+        "https://obdev.at/downloads/littlesnitch-linux/littlesnitch-${version}.${arch}.rpm"
+    echo "${sha256sum}  littlesnitch-${version}.${arch}.rpm" | sha256sum --check
