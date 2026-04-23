@@ -182,6 +182,12 @@ jobs:
           sysext: 'tailscale'
           image: ${{ env.IMAGE }}
 
+      - name: "Build sysext: twingate"
+        uses: ./.github/actions/build
+        with:
+          sysext: 'twingate'
+          image: ${{ env.IMAGE }}
+
       - name: "Build sysext: vagrant"
         uses: ./.github/actions/build
         with:
@@ -365,6 +371,12 @@ jobs:
           sysext: 'tailscale'
           image: ${{ env.IMAGE }}
 
+      - name: "Build sysext: twingate"
+        uses: ./.github/actions/build
+        with:
+          sysext: 'twingate'
+          image: ${{ env.IMAGE }}
+
       - name: "Build sysext: vagrant"
         uses: ./.github/actions/build
         with:
@@ -530,6 +542,12 @@ jobs:
           sysext: 'tailscale'
           image: ${{ env.IMAGE }}
 
+      - name: "Build sysext: twingate"
+        uses: ./.github/actions/build
+        with:
+          sysext: 'twingate'
+          image: ${{ env.IMAGE }}
+
       - name: "Build sysext: virtctl"
         uses: ./.github/actions/build
         with:
@@ -645,6 +663,12 @@ jobs:
         uses: ./.github/actions/build
         with:
           sysext: 'tailscale'
+          image: ${{ env.IMAGE }}
+
+      - name: "Build sysext: twingate"
+        uses: ./.github/actions/build
+        with:
+          sysext: 'twingate'
           image: ${{ env.IMAGE }}
 
       - name: "Build sysext: virtctl"
@@ -764,6 +788,12 @@ jobs:
           sysext: 'tailscale'
           image: ${{ env.IMAGE }}
 
+      - name: "Build sysext: twingate"
+        uses: ./.github/actions/build
+        with:
+          sysext: 'twingate'
+          image: ${{ env.IMAGE }}
+
       - name: "Build sysext: virtctl"
         uses: ./.github/actions/build
         with:
@@ -861,6 +891,12 @@ jobs:
         uses: ./.github/actions/build
         with:
           sysext: 'tailscale'
+          image: ${{ env.IMAGE }}
+
+      - name: "Build sysext: twingate"
+        uses: ./.github/actions/build
+        with:
+          sysext: 'twingate'
           image: ${{ env.IMAGE }}
 
       - name: "Build sysext: virtctl"
