@@ -19,11 +19,11 @@ download-rpms target arch=arch:
     cd rpms
 
     arch="{{arch}}"
-    version="1.0.4-1"
+    version="1.0.5-1"
     if [[ "${arch}" == "x86_64" ]]; then
-        sha256sum="fc116a95d485a3c4af26ddaea05bb2ab2d6b2c6d196c94412a9048c216e098bd"
+        sha256sum="3b903ccb267aa4e8da1cad1ef22a6aa6c86a4ecf16a8b0e0ab1a00813027d9a7"
     else
-        sha256sum="0368028f45d1dde66d0ba9d85ac69838a29b38a80795bec69a4feb92b6e0d078"
+        sha256sum="c9577d56fb70132595cd5e80e2404242c58fb668e97d26ba710912274038887c"
     fi
 
     echo "⬇️ Downloading littlesnitch"
