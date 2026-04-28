@@ -1,7 +1,7 @@
 # openconnect
 
 The primary motivation for creating this extension is to address a critical bug
-in openconnect-9.12-7 (the version currently available in Fedora 42) that
+in openconnect-9.12-10 (the version currently available in Fedora 44) that
 prevents successful connections to certain VPN configurations. This bug is
 tracked here:
 <https://gitlab.com/openconnect/openconnect/-/issues/659>
