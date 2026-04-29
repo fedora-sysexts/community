@@ -27,6 +27,11 @@ download-rpms target arch=arch:
     fi
 
     echo "⬇️ Downloading littlesnitch"
-    curl --location --fail --output "littlesnitch-${version}.${arch}.rpm" \
-        "https://obdev.at/downloads/littlesnitch-linux/littlesnitch-${version}.${arch}.rpm"
+    base_url="https://obdev.at/downloads/littlesnitch-linux"
+    if ! curl --location --fail --output "littlesnitch-${version}.${arch}.rpm" \
+        "${base_url}/littlesnitch-${version}.${arch}.rpm"; then
+        echo "⚠️  Not found in main folder, trying legacy folder"
+        curl --location --fail --output "littlesnitch-${version}.${arch}.rpm" \
+            "${base_url}/legacy/littlesnitch-${version}.${arch}.rpm"
+    fi
     echo "${sha256sum}  littlesnitch-${version}.${arch}.rpm" | sha256sum --check
