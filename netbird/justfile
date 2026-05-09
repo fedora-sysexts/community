@@ -2,7 +2,6 @@ name := "netbird"
 packages := "netbird"
 pre_commands := "rpm --import https://pkgs.netbird.io/yum/repodata/repomd.xml.key; echo -e '[netbird]\nname=netbird\nbaseurl=https://pkgs.netbird.io/yum/\nenabled=1\ngpgcheck=0\ngpgkey=https://pkgs.netbird.io/yum/repodata/repomd.xml.key\repo_gpgcheck=1' | tee /etc/yum.repos.d/netbird.repo > /dev/null"
 base_images := "
-quay.io/fedora-ostree-desktops/base-atomic:42 x86_64
 quay.io/fedora-ostree-desktops/base-atomic:43 x86_64
 quay.io/fedora-ostree-desktops/base-atomic:44 x86_64
 "
