@@ -35,14 +35,12 @@ main() {
     )
 
     images=(
-        'quay.io/fedora-ostree-desktops/base-atomic:42'
         'quay.io/fedora-ostree-desktops/base-atomic:43'
         'quay.io/fedora-ostree-desktops/base-atomic:44'
     )
 
     # Set jobnames
     declare -A jobnames
-    jobnames["quay.io/fedora-ostree-desktops/base-atomic:42"]="fedora-42"
     jobnames["quay.io/fedora-ostree-desktops/base-atomic:43"]="fedora-43"
     jobnames["quay.io/fedora-ostree-desktops/base-atomic:44"]="fedora-44"
 
