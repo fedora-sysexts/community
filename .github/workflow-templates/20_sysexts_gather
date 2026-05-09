@@ -5,10 +5,10 @@
       options: "--privileged --security-opt label=disable --user 0:0"
     # Run after the builds and versionned release
     needs:
-      - build-fedora-42-x86_64
-      - build-fedora-42-aarch64
       - build-fedora-43-x86_64
       - build-fedora-43-aarch64
+      - build-fedora-44-x86_64
+      - build-fedora-44-aarch64
     # Use `always()` to still run if any dependent job fails
     if: ${{ always() && (github.event_name == 'push' || github.event_name == 'schedule' || github.event_name == 'workflow_dispatch') && github.ref == 'refs/heads/main' }}
     steps:
