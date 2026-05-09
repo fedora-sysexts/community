@@ -281,10 +281,22 @@ jobs:
           sysext: 'cilium-cli'
           image: ${{ env.IMAGE }}
 
+      - name: "Build sysext: cloud-hypervisor"
+        uses: ./.github/actions/build
+        with:
+          sysext: 'cloud-hypervisor'
+          image: ${{ env.IMAGE }}
+
       - name: "Build sysext: dnclient"
         uses: ./.github/actions/build
         with:
           sysext: 'dnclient'
+          image: ${{ env.IMAGE }}
+
+      - name: "Build sysext: docker-ce"
+        uses: ./.github/actions/build
+        with:
+          sysext: 'docker-ce'
           image: ${{ env.IMAGE }}
 
       - name: "Build sysext: ghostty"
@@ -353,6 +365,12 @@ jobs:
           sysext: 'openconnect'
           image: ${{ env.IMAGE }}
 
+      - name: "Build sysext: openh264"
+        uses: ./.github/actions/build
+        with:
+          sysext: 'openh264'
+          image: ${{ env.IMAGE }}
+
       - name: "Build sysext: tailscale"
         uses: ./.github/actions/build
         with:
@@ -363,6 +381,12 @@ jobs:
         uses: ./.github/actions/build
         with:
           sysext: 'twingate'
+          image: ${{ env.IMAGE }}
+
+      - name: "Build sysext: vagrant"
+        uses: ./.github/actions/build
+        with:
+          sysext: 'vagrant'
           image: ${{ env.IMAGE }}
 
       - name: "Build sysext: virtctl"
@@ -563,10 +587,22 @@ jobs:
           sysext: 'cilium-cli'
           image: ${{ env.IMAGE }}
 
+      - name: "Build sysext: cloud-hypervisor"
+        uses: ./.github/actions/build
+        with:
+          sysext: 'cloud-hypervisor'
+          image: ${{ env.IMAGE }}
+
       - name: "Build sysext: dnclient"
         uses: ./.github/actions/build
         with:
           sysext: 'dnclient'
+          image: ${{ env.IMAGE }}
+
+      - name: "Build sysext: docker-ce"
+        uses: ./.github/actions/build
+        with:
+          sysext: 'docker-ce'
           image: ${{ env.IMAGE }}
 
       - name: "Build sysext: ghostty"
@@ -591,6 +627,12 @@ jobs:
         uses: ./.github/actions/build
         with:
           sysext: 'mullvad-vpn'
+          image: ${{ env.IMAGE }}
+
+      - name: "Build sysext: openh264"
+        uses: ./.github/actions/build
+        with:
+          sysext: 'openh264'
           image: ${{ env.IMAGE }}
 
       - name: "Build sysext: tailscale"
