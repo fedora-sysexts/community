@@ -377,12 +377,6 @@ jobs:
           sysext: 'twingate'
           image: ${{ env.IMAGE }}
 
-      - name: "Build sysext: vagrant"
-        uses: ./.github/actions/build
-        with:
-          sysext: 'vagrant'
-          image: ${{ env.IMAGE }}
-
       - name: "Build sysext: virtctl"
         uses: ./.github/actions/build
         with:
