@@ -29,8 +29,8 @@ install-manual:
     cd rootfs
 
     # Move service from /lib to /usr/lib as needed
-    if [[ -f "lib/systemd/system/tailscaled.service" ]]; then
-        ${SUDO} mv lib/systemd/system/tailscaled.service usr/lib/systemd/system/
+    if [[ -d "lib/systemd/system" ]]; then
+        ${SUDO} mv lib/systemd/system/* usr/lib/systemd/system/
         ${SUDO} rmdir lib/systemd/system lib/systemd lib
     fi
 
