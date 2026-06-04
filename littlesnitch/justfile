@@ -18,19 +18,24 @@ download-rpms target arch=arch:
     cd rpms
 
     arch="{{arch}}"
+
+    {{retry_function}}
+
     base_url="https://obdev.at/downloads/littlesnitch-linux"
 
     echo "🔍 Fetching latest version"
-    version="$(curl --location --fail --silent "${base_url}/latest-version.txt" | tr -d '[:space:]')"
+    retry 5 60 curl --location --fail --silent "${base_url}/latest-version.txt" --output latest_version
+    version="$(cat latest_version | tr -d '[:space:]')"
     if [[ -z "${version}" ]]; then
         echo "❌ Failed to determine latest version"
         exit 1
     fi
     echo "📦 Latest version: ${version}"
+    rm latest_version
 
     echo "🔍 Fetching hashes file"
     hashes_file="littlesnitch-${version}.hashes.txt"
-    curl --location --fail --silent --output "${hashes_file}" \
+    retry 5 60 curl --location --fail --silent --output "${hashes_file}" \
         "${base_url}/${hashes_file}"
 
     rpm_line="$(grep -E "  littlesnitch-${version}-[0-9]+\.${arch}\.rpm$" "${hashes_file}" | head -n1)"
@@ -42,7 +47,7 @@ download-rpms target arch=arch:
     rpm_filename="$(echo "${rpm_line}" | awk '{print $2}')"
 
     echo "⬇️ Downloading ${rpm_filename}"
-    curl --location --fail --output "${rpm_filename}" \
+    retry 5 60 curl --location --fail --output "${rpm_filename}" \
         "${base_url}/${rpm_filename}"
     echo "${sha256sum_expected}  ${rpm_filename}" | sha256sum --check
-    rm -f "${hashes_file}"
+    rm "${hashes_file}"
