@@ -1,0 +1,10 @@
+name := "git-absorb"
+packages := "git-absorb"
+copr_repos := "siosm/rust-git-absorb"
+base_images := "
+quay.io/fedora-ostree-desktops/base-atomic:44 x86_64,aarch64
+"
+
+import '../sysext.just'
+
+all: default
