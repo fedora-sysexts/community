@@ -1,0 +1,69 @@
+name := "materia"
+
+import '../sysext.just'
+
+all: default
+
+# Custom download step to get materia
+# TODO: Automate version bumps
+download-manual arch=arch:
+    #!/bin/bash
+    set -euo pipefail
+    {{retry_function}}
+    if [[ -n "{{debug}}" ]]; then
+      set -x
+    fi
+
+    mkdir binaries
+    cd binaries
+
+    arch="{{arch}}"
+    version="0.7.0"
+    if [[ "${arch}" == "x86_64" ]]; then
+        goarch="amd64"
+        sha256sum="e06028df7ea0dad5da4d34fa3da3106ef58c99a72c1b2d048b979011cac6a67c"
+    else
+        goarch="arm64"
+        sha256sum="d8f2cfcfbb82bc4a784097133e99970e14cea364ee9903a4d8aefb38b4973d09"
+    fi
+
+    echo "⬇️ Downloading materia"
+    destfile="materia-${goarch}"
+    retry 3 5 curl --fail --location --remote-name \
+        "https://github.com/stryan/materia/releases/download/v${version}/${destfile}"
+    echo "${sha256sum}  ${destfile}" | sha256sum --check
+    mv "${destfile}" materia
+
+    # License is not in the release asset; fetch from the tag
+    retry 3 5 curl --fail --location --output LICENSE \
+        "https://raw.githubusercontent.com/stryan/materia/v${version}/LICENSE"
+
+    # Version & metadata
+    echo "${version}" > ../version
+    echo "${sha256sum}  ${destfile}" >> ../inputs
+
+# Skip default recipe
+version:
+    true
+
+# Custom installation step to install materia
+install-manual:
+    #!/bin/bash
+    set -euo pipefail
+    if [[ -n "{{debug}}" ]]; then
+      set -x
+    fi
+
+    if [[ "${UID}" == "0" ]]; then
+        SUDO=""
+    else
+        SUDO="sudo"
+    fi
+
+    cd rootfs
+
+    echo "➡️ Installing materia"
+    ${SUDO} install -D -m 755 ../binaries/materia usr/bin/materia
+    ${SUDO} install -D -m 644 ../binaries/LICENSE usr/share/licenses/materia/LICENSE
+
+    ${SUDO} chown -R root: usr

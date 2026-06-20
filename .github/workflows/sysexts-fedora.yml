@@ -128,6 +128,12 @@ jobs:
           sysext: 'littlesnitch'
           image: ${{ env.IMAGE }}
 
+      - name: "Build sysext: materia"
+        uses: ./.github/actions/build
+        with:
+          sysext: 'materia'
+          image: ${{ env.IMAGE }}
+
       - name: "Build sysext: microsoft-edge"
         uses: ./.github/actions/build
         with:
@@ -323,6 +329,12 @@ jobs:
           sysext: 'littlesnitch'
           image: ${{ env.IMAGE }}
 
+      - name: "Build sysext: materia"
+        uses: ./.github/actions/build
+        with:
+          sysext: 'materia'
+          image: ${{ env.IMAGE }}
+
       - name: "Build sysext: microsoft-edge"
         uses: ./.github/actions/build
         with:
@@ -488,6 +500,12 @@ jobs:
           sysext: 'littlesnitch'
           image: ${{ env.IMAGE }}
 
+      - name: "Build sysext: materia"
+        uses: ./.github/actions/build
+        with:
+          sysext: 'materia'
+          image: ${{ env.IMAGE }}
+
       - name: "Build sysext: mullvad-vpn"
         uses: ./.github/actions/build
         with:
@@ -615,6 +633,12 @@ jobs:
         uses: ./.github/actions/build
         with:
           sysext: 'littlesnitch'
+          image: ${{ env.IMAGE }}
+
+      - name: "Build sysext: materia"
+        uses: ./.github/actions/build
+        with:
+          sysext: 'materia'
           image: ${{ env.IMAGE }}
 
       - name: "Build sysext: mullvad-vpn"
