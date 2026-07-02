@@ -29,4 +29,6 @@ install-manual:
     ${SUDO} ln -sf "/usr/lib/Mullvad VPN/mullvad-gui" usr/bin/mullvad-gui
     ${SUDO} ln -sf "/usr/lib/Mullvad VPN/mullvad-vpn" usr/bin/mullvad-vpn
     ${SUDO} chmod 4755 "usr/lib/Mullvad VPN/chrome-sandbox"
-    ${SUDO} sed -i 's|^Exec=/opt/Mullvad VPN|Exec=/usr/bin|g' usr/share/applications/mullvad-vpn.desktop
+    ${SUDO} sed -i 's|Exec="/opt/Mullvad VPN/mullvad-vpn"|Exec=/usr/bin/mullvad-vpn|g' usr/share/applications/mullvad-vpn.desktop
+    ${SUDO} sed -i 's|RequiresMountsFor=/opt/Mullvad\\x20VPN/resources/|RequiresMountsFor=/usr/lib/Mullvad\\x20VPN/resources/|g' usr/lib/systemd/system/mullvad-daemon.service
+    ${SUDO} sed -i 's|Environment="MULLVAD_RESOURCE_DIR=/opt/Mullvad VPN/resources/"|Environment="MULLVAD_RESOURCE_DIR=/usr/lib/Mullvad VPN/resources/"|g' usr/lib/systemd/system/mullvad-daemon.service

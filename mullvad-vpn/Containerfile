@@ -10,7 +10,9 @@ mv "/opt/Mullvad VPN" "/usr/lib/Mullvad VPN"
 ln -sf "/usr/lib/Mullvad VPN/mullvad-vpn" /usr/bin/mullvad-vpn
 ln -sf "/usr/lib/Mullvad VPN/mullvad-gui" /usr/bin/mullvad-gui
 chmod 4755 "/usr/lib/Mullvad VPN/chrome-sandbox"
-sed -i 's|^Exec=/opt/Mullvad VPN|Exec=/usr/bin|g' /usr/share/applications/mullvad-vpn.desktop
+sed -i 's|Exec="/opt/Mullvad VPN/mullvad-vpn"|Exec=/usr/bin/mullvad-vpn|g' /usr/share/applications/mullvad-vpn.desktop
+sed -i 's|RequiresMountsFor=/opt/Mullvad\\x20VPN/resources/|RequiresMountsFor=/usr/lib/Mullvad\\x20VPN/resources/|g' /usr/lib/systemd/system/mullvad-daemon.service
+sed -i 's|Environment="MULLVAD_RESOURCE_DIR=/opt/Mullvad VPN/resources/"|Environment="MULLVAD_RESOURCE_DIR=/usr/lib/Mullvad VPN/resources/"|g' /usr/lib/systemd/system/mullvad-daemon.service
 rmdir /opt
 mv /opt{.bak,}
 dnf clean all
