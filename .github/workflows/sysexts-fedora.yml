@@ -305,12 +305,6 @@ jobs:
           sysext: 'ghostty'
           image: ${{ env.IMAGE }}
 
-      - name: "Build sysext: git-absorb"
-        uses: ./.github/actions/build
-        with:
-          sysext: 'git-absorb'
-          image: ${{ env.IMAGE }}
-
       - name: "Build sysext: glab"
         uses: ./.github/actions/build
         with:
@@ -615,12 +609,6 @@ jobs:
         uses: ./.github/actions/build
         with:
           sysext: 'ghostty'
-          image: ${{ env.IMAGE }}
-
-      - name: "Build sysext: git-absorb"
-        uses: ./.github/actions/build
-        with:
-          sysext: 'git-absorb'
           image: ${{ env.IMAGE }}
 
       - name: "Build sysext: glab"
