@@ -6,6 +6,8 @@ nordvpnd.service
 nordvpnd.socket
 "
 pre_commands := "rpm --import https://repo.nordvpn.com/yum/nordvpn/centos/x86_64/repodata/repomd.xml.key && echo -e '[code]\nname=NordVPN\nbaseurl=https://repo.nordvpn.com/yum/nordvpn/centos/x86_64/\nenabled=1\ngpgcheck=1\ngpgkey=https://repo.nordvpn.com/yum/nordvpn/centos/x86_64/repodata/repomd.xml.key' | tee /etc/yum.repos.d/nordvpn.repo > /dev/null"
+# We don't want the GUI for this sysext
+dnf_weak_deps := "false"
 base_images := "
 quay.io/fedora-ostree-desktops/base-atomic:43 x86_64
 quay.io/fedora-ostree-desktops/base-atomic:44 x86_64
