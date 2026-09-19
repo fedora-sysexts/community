@@ -1,0 +1,41 @@
+FROM baseimage
+
+RUN <<EORUN
+set -xeuo pipefail
+dnf install -y --setopt=install_weak_deps=False \
+    git cmake ninja-build gcc-c++ extra-cmake-modules gettext \
+    "cmake(KDecoration3)" \
+    "cmake(KF6ColorScheme)" \
+    "cmake(KF6Config)" \
+    "cmake(KF6CoreAddons)" \
+    "cmake(KF6FrameworkIntegration)" \
+    "cmake(KF6GuiAddons)" \
+    "cmake(KF6I18n)" \
+    "cmake(KF6KCMUtils)" \
+    "cmake(KF6WindowSystem)" \
+    "cmake(Qt6Core)" \
+    "cmake(Qt6DBus)" \
+    "cmake(Qt6Quick)" \
+    "cmake(Qt6Svg)" \
+    "cmake(Qt6Widgets)" \
+    "cmake(Qt6Xml)" \
+    tar curl
+
+mkdir -p /tmp/klassy
+curl -fsSL https://github.com/paulmcauley/klassy/archive/refs/tags/v6.7.3.tar.gz | tar -xz -C /tmp/klassy --strip-components=1
+
+cmake -B /tmp/klassy/build -S /tmp/klassy -GNinja \
+    -DCMAKE_INSTALL_PREFIX=/usr \
+    -DCMAKE_BUILD_TYPE=Release \
+    -DBUILD_QT5=OFF \
+    -DBUILD_QT6=ON \
+    -DBUILD_TESTING=OFF
+
+ninja -C /tmp/klassy/build install
+rm -rf /tmp/klassy
+
+dnf remove -y \
+    cmake ninja-build gcc-c++ extra-cmake-modules \
+    *-devel
+dnf clean all
+EORUN

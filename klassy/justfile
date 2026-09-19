@@ -1,0 +1,110 @@
+name := "klassy"
+version := "6.7.3"
+base_images := "
+quay.io/fedora-ostree-desktops/base-atomic:43 x86_64,aarch64
+quay.io/fedora-ostree-desktops/base-atomic:44 x86_64,aarch64
+quay.io/fedora-ostree-desktops/kinoite:43 x86_64,aarch64
+quay.io/fedora-ostree-desktops/kinoite:44 x86_64,aarch64
+"
+
+import '../sysext.just'
+
+all: default
+
+# Custom download recipe: fetches Klassy release source and verifies checksum
+download-manual arch=arch:
+    #!/bin/bash
+    set -euo pipefail
+    {{retry_function}}
+    if [[ -n "{{debug}}" ]]; then
+      set -x
+    fi
+
+    mkdir -p binaries
+    cd binaries
+
+    version="{{version}}"
+    sha256sum="a3e9b96723cda1b3c46d6f456d495e5e34d051940e6f71aa9a345e8fb850e1fb"
+    destfile="klassy-${version}.tar.gz"
+
+    echo "⬇️ Downloading Klassy ${version}"
+    retry 3 5 curl --fail --location --output "${destfile}" \
+        "https://github.com/paulmcauley/klassy/archive/refs/tags/v${version}.tar.gz"
+
+    echo "${sha256sum}  ${destfile}" | sha256sum --check
+
+    rm -rf src
+    mkdir -p src
+    tar -xzf "${destfile}" -C src --strip-components=1
+
+    # Version & metadata
+    echo "${version}" > ../version
+    echo "${sha256sum}  ${destfile}" > ../inputs
+
+# Override default version recipe since version is set manually
+version:
+    true
+
+# Custom build and install recipe: compiles Klassy with Qt6 only inside a container
+install-manual:
+    #!/bin/bash
+    set -euo pipefail
+    if [[ -n "{{debug}}" ]]; then
+      set -x
+    fi
+
+    if [[ "${UID}" == "0" ]]; then
+        SUDO=""
+    else
+        SUDO="sudo"
+    fi
+
+    version_id="$(cat ./version_id)"
+    version="$(cat ./version)"
+    target_image="$(cat ./digest | cut -d'@' -f1)"
+
+    echo "🔨 Building Klassy ${version} for Plasma 6 (Qt6 only)"
+
+    mkdir -p binaries/build binaries/dest
+
+    podman run {{podman_opts}} \
+        --volume "${PWD}/binaries/src:/src:ro" \
+        --volume "${PWD}/binaries/build:/build:rw" \
+        --volume "${PWD}/binaries/dest:/dest:rw" \
+        --volume "${PWD}/../.dnf-cache:/var/cache/libdnf5" \
+        "${target_image}" \
+        bash -c '
+            set -xeuo pipefail
+            dnf install -y --setopt=install_weak_deps=False \
+                git cmake ninja-build gcc-c++ extra-cmake-modules gettext \
+                "cmake(KDecoration3)" \
+                "cmake(KF6ColorScheme)" \
+                "cmake(KF6Config)" \
+                "cmake(KF6CoreAddons)" \
+                "cmake(KF6FrameworkIntegration)" \
+                "cmake(KF6GuiAddons)" \
+                "cmake(KF6I18n)" \
+                "cmake(KF6KCMUtils)" \
+                "cmake(KF6WindowSystem)" \
+                "cmake(Qt6Core)" \
+                "cmake(Qt6DBus)" \
+                "cmake(Qt6Quick)" \
+                "cmake(Qt6Svg)" \
+                "cmake(Qt6Widgets)" \
+                "cmake(Qt6Xml)"
+
+            cmake -B /build -S /src -GNinja \
+                -DCMAKE_INSTALL_PREFIX=/usr \
+                -DCMAKE_BUILD_TYPE=Release \
+                -DBUILD_QT5=OFF \
+                -DBUILD_QT6=ON \
+                -DBUILD_TESTING=OFF
+
+            ninja -C /build
+            DESTDIR=/dest ninja -C /build install
+        '
+
+    echo "➡️ Installing Klassy into rootfs"
+    ${SUDO} cp -a binaries/dest/usr/. rootfs/usr/
+    ${SUDO} chown -R root: rootfs/usr
+
