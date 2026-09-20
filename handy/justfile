@@ -1,0 +1,8 @@
+name := "handy"
+packages := "handy"
+dnf_weak_deps := "false"
+copr_repos := "GianniBYoung/handy-bin"
+
+import '../sysext.just'
+
+all: default
