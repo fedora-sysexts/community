@@ -122,6 +122,12 @@ jobs:
           sysext: 'google-chrome'
           image: ${{ env.IMAGE }}
 
+      - name: "Build sysext: handy"
+        uses: ./.github/actions/build
+        with:
+          sysext: 'handy'
+          image: ${{ env.IMAGE }}
+
       - name: "Build sysext: littlesnitch"
         uses: ./.github/actions/build
         with:
@@ -317,6 +323,12 @@ jobs:
           sysext: 'google-chrome'
           image: ${{ env.IMAGE }}
 
+      - name: "Build sysext: handy"
+        uses: ./.github/actions/build
+        with:
+          sysext: 'handy'
+          image: ${{ env.IMAGE }}
+
       - name: "Build sysext: littlesnitch"
         uses: ./.github/actions/build
         with:
@@ -488,6 +500,12 @@ jobs:
           sysext: 'glab'
           image: ${{ env.IMAGE }}
 
+      - name: "Build sysext: handy"
+        uses: ./.github/actions/build
+        with:
+          sysext: 'handy'
+          image: ${{ env.IMAGE }}
+
       - name: "Build sysext: littlesnitch"
         uses: ./.github/actions/build
         with:
@@ -615,6 +633,12 @@ jobs:
         uses: ./.github/actions/build
         with:
           sysext: 'glab'
+          image: ${{ env.IMAGE }}
+
+      - name: "Build sysext: handy"
+        uses: ./.github/actions/build
+        with:
+          sysext: 'handy'
           image: ${{ env.IMAGE }}
 
       - name: "Build sysext: littlesnitch"
