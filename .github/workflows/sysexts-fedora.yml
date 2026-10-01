@@ -683,6 +683,12 @@ jobs:
           sysext: 'mullvad-vpn'
           image: ${{ env.IMAGE }}
 
+      - name: "Build sysext: netbird"
+        uses: ./.github/actions/build
+        with:
+          sysext: 'netbird'
+          image: ${{ env.IMAGE }}
+
       - name: "Build sysext: openh264"
         uses: ./.github/actions/build
         with:
@@ -812,6 +818,12 @@ jobs:
           sysext: 'mullvad-vpn'
           image: ${{ env.IMAGE }}
 
+      - name: "Build sysext: netbird"
+        uses: ./.github/actions/build
+        with:
+          sysext: 'netbird'
+          image: ${{ env.IMAGE }}
+
       - name: "Build sysext: openh264"
         uses: ./.github/actions/build
         with:
@@ -933,6 +945,12 @@ jobs:
         uses: ./.github/actions/build
         with:
           sysext: 'mullvad-vpn'
+          image: ${{ env.IMAGE }}
+
+      - name: "Build sysext: netbird"
+        uses: ./.github/actions/build
+        with:
+          sysext: 'netbird'
           image: ${{ env.IMAGE }}
 
       - name: "Build sysext: tailscale"
