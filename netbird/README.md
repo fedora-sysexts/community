@@ -1,6 +1,6 @@
 # netbird
 
-Netbird from the official RPM: https://docs.netbird.io/get-started/install/linux#fedora-amazon-linux-2023-dnf
+Netbird CLI only from the official RPM: <https://docs.netbird.io/get-started/install/linux>
 
 ## Compatibility
 
