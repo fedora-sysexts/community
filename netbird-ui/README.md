@@ -1,6 +1,6 @@
 # netbird-ui
 
-Netbird CLI and GUI from the official RPM: https://docs.netbird.io/get-started/install/linux#fedora-amazon-linux-2023-dnf
+Netbird CLI and GUI from the official RPM: <https://docs.netbird.io/get-started/install/linux>
 
 ## Compatibility
 
