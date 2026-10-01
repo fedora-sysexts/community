@@ -29,20 +29,42 @@ main() {
 
     local -r releaseurl="https://github.com/\${{ github.repository }}/releases/download"
 
+    local -r registry="quay.io/fedora-ostree-desktops"
+
     arches=(
         'x86_64'
         'aarch64'
     )
 
-    images=(
-        'quay.io/fedora-ostree-desktops/base-atomic:43'
-        'quay.io/fedora-ostree-desktops/base-atomic:44'
+    variants=(
+        'base-atomic'
     )
 
-    # Set jobnames
+    releases=(
+        '43'
+        '44'
+        '45'
+    )
+
+    # Generate image list
+    declare -a images
+    for variant in "${variants[@]}"; do
+        for release in "${releases[@]}"; do
+            images+=("${registry}/${variant}:${release}")
+        done
+    done
+    echo "Generating workflow for images:"
+    for image in "${images[@]}"; do
+        echo "- ${image}"
+    done
+
+    # Generate jobname list
     declare -A jobnames
-    jobnames["quay.io/fedora-ostree-desktops/base-atomic:43"]="fedora-43"
-    jobnames["quay.io/fedora-ostree-desktops/base-atomic:44"]="fedora-44"
+    for variant in "${variants[@]}"; do
+        for release in "${releases[@]}"; do
+            jobnames["${registry}/${variant}:${release}"]="fedora-${release}"
+        done
+    done
 
     # Get the list of sysexts for each image and each arch
     declare -A sysexts

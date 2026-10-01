@@ -12,6 +12,7 @@ set allow-duplicate-recipes := true
 base_images := "
 quay.io/fedora-ostree-desktops/base-atomic:43 x86_64,aarch64
 quay.io/fedora-ostree-desktops/base-atomic:44 x86_64,aarch64
+quay.io/fedora-ostree-desktops/base-atomic:45 x86_64,aarch64
 "
 
 # Default to building for the current architecture
@@ -280,6 +281,12 @@ download-rpms target arch=arch:
 
     # Always disable the openh264 repo by default
     pre_commands="dnf5 config-manager setopt fedora-cisco-openh264.enabled=0; "
+
+    # Also disable the update-testing repo for branched releases
+    pre_commands+="dnf5 config-manager setopt updates-testing.enabled=0; "
+
+    # Always lock to package versions that are already in the image
+    pre_commands+="dnf5 versionlock add '*' > /dev/null; "
 
     if [[ -n "{{pre_commands}}" ]]; then
         pre_commands+="{{pre_commands}} ; "
@@ -599,6 +606,7 @@ move-etc:
 # Validation pass that checks for common errors and will also try to fix some
 # common cases:
 # - Cleanup files as requested in the justfile
+# - Remove dnf repo lock (/var/lib/dnf/system-repo.lock)
 # - Remove all empty directories in /var, /run and /opt
 # - Merge the content of /usr/sbin with /usr/bin (since Fedora 42)
 # - Run the checks
@@ -629,6 +637,12 @@ validate:
             echo "🧹 Cleaning up file: ${f}"
             rm ./${f}
         done
+    fi
+
+    # Remove dnf repo lock as it's created by a tmpfiles.d config (since Fedora 45)
+    if [[ -f "var/lib/dnf/system-repo.lock" ]]; then
+        echo "➡️ Removing dnf repo lock file"
+        ${SUDO} rm var/lib/dnf/system-repo.lock
     fi
 
     # Remove all empty directories in /var, /run and /opt
