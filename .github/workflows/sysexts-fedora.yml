@@ -36,7 +36,7 @@ concurrency:
 
 jobs:
   build-fedora-43-x86_64:
-    runs-on: "ubuntu-24.04"
+    runs-on: "ubuntu-26.04"
     container:
       image: "ghcr.io/fedora-sysexts/buildroot:latest"
       options: "--privileged --security-opt label=disable --user 0:0"
@@ -237,7 +237,7 @@ jobs:
           image: ${{ env.IMAGE }}
 
   build-fedora-44-x86_64:
-    runs-on: "ubuntu-24.04"
+    runs-on: "ubuntu-26.04"
     container:
       image: "ghcr.io/fedora-sysexts/buildroot:latest"
       options: "--privileged --security-opt label=disable --user 0:0"
@@ -426,7 +426,7 @@ jobs:
           image: ${{ env.IMAGE }}
 
   build-fedora-45-x86_64:
-    runs-on: "ubuntu-24.04"
+    runs-on: "ubuntu-26.04"
     container:
       image: "ghcr.io/fedora-sysexts/buildroot:latest"
       options: "--privileged --security-opt label=disable --user 0:0"
@@ -603,7 +603,7 @@ jobs:
           image: ${{ env.IMAGE }}
 
   build-fedora-43-aarch64:
-    runs-on: "ubuntu-24.04-arm"
+    runs-on: "ubuntu-26.04-arm"
     container:
       image: "ghcr.io/fedora-sysexts/buildroot:latest"
       options: "--privileged --security-opt label=disable --user 0:0"
@@ -744,7 +744,7 @@ jobs:
           image: ${{ env.IMAGE }}
 
   build-fedora-44-aarch64:
-    runs-on: "ubuntu-24.04-arm"
+    runs-on: "ubuntu-26.04-arm"
     container:
       image: "ghcr.io/fedora-sysexts/buildroot:latest"
       options: "--privileged --security-opt label=disable --user 0:0"
@@ -879,7 +879,7 @@ jobs:
           image: ${{ env.IMAGE }}
 
   build-fedora-45-aarch64:
-    runs-on: "ubuntu-24.04-arm"
+    runs-on: "ubuntu-26.04-arm"
     container:
       image: "ghcr.io/fedora-sysexts/buildroot:latest"
       options: "--privileged --security-opt label=disable --user 0:0"
