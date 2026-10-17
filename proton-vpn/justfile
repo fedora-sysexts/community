@@ -1,0 +1,38 @@
+name := "proton-vpn"
+# GUI app + CLI. Install either this sysext or proton-vpn-cli, not both.
+packages := "proton-vpn-gnome-desktop proton-vpn-cli"
+version_package := "proton-vpn-gtk-app"
+# Only hard dependencies: weak ones (notably bcc's) pull a compiler toolchain
+# and kernel-devel for a kernel that will not match the host one
+dnf_weak_deps := "false"
+# Proton publishes one repo (and one signing key) per Fedora release. '\\$' is
+# needed so that the variables are expanded in the target container and not on
+# the build host.
+pre_commands := "rpm --import https://repo.protonvpn.com/fedora-\\$(rpm -E %fedora)-stable/public_key.asc && echo -e '[protonvpn-fedora-stable]\nname=Proton VPN Fedora Stable repository\nbaseurl=https://repo.protonvpn.com/fedora-\\$releasever-stable\nenabled=1\ngpgcheck=1\ngpgkey=https://repo.protonvpn.com/fedora-\\$releasever-stable/public_key.asc' | tee /etc/yum.repos.d/protonvpn.repo > /dev/null"
+# Only add a Fedora release once https://repo.protonvpn.com/fedora-<N>-stable exists
+base_images := "
+quay.io/fedora-ostree-desktops/base-atomic:43 x86_64
+quay.io/fedora-ostree-desktops/base-atomic:44 x86_64
+"
+
+import '../sysext.just'
+
+all: default
+
+# Remove packages that we do not want in the sysext:
+# - Split tunneling is not supported: drop proton-vpn-daemon and what only it
+#   needs. It relies on bcc, which compiles eBPF programs at runtime: it pulls
+#   the LLVM/Clang libraries (most of the size of the sysext), needs headers for
+#   the running kernel and does not work on kernels locked down in
+#   confidentiality mode.
+# - NetworkManager's OpenVPN plugin, OpenVPN and gnome-keyring (and the
+#   libraries that only they need) are part of most desktop images and must come
+#   from the image, not from this sysext.
+download-manual arch=arch:
+    #!/bin/bash
+    set -euo pipefail
+    cd rpms
+    rm -fv proton-vpn-daemon-*.rpm bcc-[0-9]*.rpm python3-bcc-*.rpm llvm[0-9]*-*.rpm clang[0-9]*-*.rpm
+    rm -fv NetworkManager-openvpn-*.rpm openvpn-[0-9]*.rpm pkcs11-helper-*.rpm \
+        libnma-*.rpm mobile-broadband-provider-info-*.rpm \
+        gnome-keyring-[0-9]*.rpm gcr-libs-*.rpm gcr3-*.rpm
