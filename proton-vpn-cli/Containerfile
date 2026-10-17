@@ -1,0 +1,11 @@
+FROM baseimage
+
+RUN <<EORUN
+set -xeuo pipefail
+rpm --import "https://repo.protonvpn.com/fedora-$(rpm -E %fedora)-stable/public_key.asc"
+echo -e '[protonvpn-fedora-stable]\nname=Proton VPN Fedora Stable repository\nbaseurl=https://repo.protonvpn.com/fedora-$releasever-stable\nenabled=1\ngpgcheck=1\ngpgkey=https://repo.protonvpn.com/fedora-$releasever-stable/public_key.asc' | tee /etc/yum.repos.d/protonvpn.repo > /dev/null
+dnf install -y --setopt=install_weak_deps=False proton-vpn-cli
+# Split tunneling is not supported, see the justfile
+rpm -qa 'proton-vpn-daemon' 'bcc' 'python3-bcc' 'llvm[0-9]*' 'clang[0-9]*' | xargs -r rpm -e --nodeps
+dnf clean all
+EORUN
