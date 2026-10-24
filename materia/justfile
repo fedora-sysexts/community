@@ -18,25 +18,23 @@ download-manual arch=arch:
     cd binaries
 
     arch="{{arch}}"
-    version="0.7.0"
+    version="0.8.0"
     if [[ "${arch}" == "x86_64" ]]; then
         goarch="amd64"
-        sha256sum="e06028df7ea0dad5da4d34fa3da3106ef58c99a72c1b2d048b979011cac6a67c"
+        sha256sum="5ac4a44a54bbdc71f87db4d168c0246f6b272208d6a0a28e66575ab649bcf09d"
     else
         goarch="arm64"
-        sha256sum="d8f2cfcfbb82bc4a784097133e99970e14cea364ee9903a4d8aefb38b4973d09"
+        sha256sum="a96d36b157262d3924cd4a2f66cfa43d96117f1f3d8667b7610fea526d8be5d9"
     fi
 
     echo "⬇️ Downloading materia"
-    destfile="materia-${goarch}"
+    destfile="materia-v${version}-${goarch}.tar.gz"
     retry 3 5 curl --fail --location --remote-name \
         "https://github.com/stryan/materia/releases/download/v${version}/${destfile}"
     echo "${sha256sum}  ${destfile}" | sha256sum --check
-    mv "${destfile}" materia
 
-    # License is not in the release asset; fetch from the tag
-    retry 3 5 curl --fail --location --output LICENSE \
-        "https://raw.githubusercontent.com/stryan/materia/v${version}/LICENSE"
+    tar xvf ${destfile}
+    rm ${destfile} README.md
 
     # Version & metadata
     echo "${version}" > ../version
@@ -63,7 +61,9 @@ install-manual:
     cd rootfs
 
     echo "➡️ Installing materia"
-    ${SUDO} install -D -m 755 ../binaries/materia usr/bin/materia
-    ${SUDO} install -D -m 644 ../binaries/LICENSE usr/share/licenses/materia/LICENSE
-
+    ${SUDO} install -D -m 755 ../binaries/bin/materia -T usr/bin/materia
+    ${SUDO} install -D -m 644 ../binaries/LICENSE -t usr/share/licenses/materia/LICENSE
+    ${SUDO} install -D -m 644 ../binaries/man/man1/materia.1 -t usr/share/man/man1
+    ${SUDO} install -D -m 644 ../binaries/man/man5/*.5 -t usr/share/man/man5
+    ${SUDO} install -D -m 644 ../binaries/systems.primamateria.materia.conf -t usr/share/dbus-1/system.d
     ${SUDO} chown -R root: usr
