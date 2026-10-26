@@ -1,7 +1,7 @@
 # Handy
 
 Upstream releases: <https://github.com/cjpais/Handy>
-Community maintained RPM <https://github.com/GianniBYoung/handy-bin>
+Community maintained RPM <https://copr.fedorainfracloud.org/coprs/countmancy/handy-bin/>
 
 ## Compatibility
 
