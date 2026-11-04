@@ -590,12 +590,6 @@ jobs:
           sysext: 'nordvpn'
           image: ${{ env.IMAGE }}
 
-      - name: "Build sysext: openconnect"
-        uses: ./.github/actions/build
-        with:
-          sysext: 'openconnect'
-          image: ${{ env.IMAGE }}
-
       - name: "Build sysext: tailscale"
         uses: ./.github/actions/build
         with:
